@@ -1,0 +1,85 @@
+﻿<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Custom Decals</Name>
+  <Author>KingBR</Author>
+  <ModID>kingbr.customdecals</ModID>
+  <Version>1.0</Version>
+  <Description>
+	  [b]Custom Decals - Placeable Signs and Images[/b]
+
+	  Add customizable decals to your base in Stationeers.
+
+	  This mod allows you to place decals (constructed with a Sign Kit) with custom images and sizes, using both built-in assets and user-provided PNG files.
+
+	  [hr]
+
+	  [b]Features[/b]
+
+	  [list]
+	  [*]Placeable decal structures (similar to signs)
+	  [*]Support for custom PNG images
+	  [*]Independent front and back decals
+	  [*]Adjustable width and height per side
+	  [*]In-game reload command to reload user provided images (reloaddecals)
+	  [/list]
+
+	  [hr]
+
+	  [b]Custom Decals[/b]
+
+	  You can add your own images:
+
+	  [olist]
+	  [*]Go to:
+	  [code]
+	  Stationeers/BepInEx/config/CustomDecals/Decals/
+	  [/code]
+	  [*]Add your .png files
+	  [*]If already have opened the game, run the command:
+	  [code]
+	  reloaddecals
+	  [/code]
+	  [/olist]
+
+	  [hr]
+
+	  [b]Configuration Format[/b]
+
+	  Decals are configured using the item's name (using a labeller):
+
+	  [code]
+	  front;back;widthFront;heightFront;widthBack;heightBack
+	  [/code]
+
+	  Example:
+
+	  [code]
+	  warning;hazard;1;1;3;3
+	  [/code]
+
+	  [hr]
+
+	  [b]Notes[/b]
+
+	  [list]
+	  [*]Only PNG images are supported for custom decals
+	  [*]Image size is recommended to be 1024x1024 or smaller, but larger images should work
+	  [/list]
+
+	  [hr]
+
+	  [b]Requirements[/b]
+
+	  [list]
+	  [*][url=https://github.com/StationeersLaunchPad/StationeersLaunchPad]Stationeers Launch Pad[/url]
+	  [/list]
+
+	  [b]Links[/b]
+	  [list]
+	  Support: [url=https://discord.gg/UxzsWmwrpR]Stationeers Modding Discord[/url]
+	  [/list]
+  </Description>
+  <WorkshopHandle>0</WorkshopHandle>
+  <Tags>
+    <Tag>StationeersLaunchPad</Tag>
+  </Tags>
+</ModMetadata>
