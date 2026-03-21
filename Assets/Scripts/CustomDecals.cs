@@ -45,21 +45,22 @@ namespace CustomDecals
             LoadDecals();
             Log($"Loaded {Decals.Count} decals");
 
+            MOD.SetupPrefabs() // run on all prefabs
+              .SetBlueprintMaterials(); // fill in blueprint materials to match builtin blueprints
+
+            MOD.AddSaveDataType<DecalSaveData>(); // add the custom save data type for decals
             MOD.SetupPrefabs<DecalBlock>() // run on decal prefab
-                .AddToMultiConstructorKit("ItemKitSign") // add the item kit sign to the multi constructor kit
-                .SetEntryTool("ItemKitSign") // set the entry 2 tool to the item kit sign
+                .AddToMultiConstructorKit("ItemKitSign") // add the decal prefab to the multiconstructor item kit sign
+                .SetEntryTool("ItemKitSign") // set the entry tool to the item kit sign
                 .SetExitTool(PrefabNames.Crowbar) // set the exit tool to the crowbar
                 .RunFunc(prefab =>
                 {
-                    Sprite thumb = Decals.TryGetValue("warning", out var tex) ? Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f)) : null;
-                    prefab.BuildStates[0].Tool.EntryQuantity = 1;
+                    Sprite thumb = Decals.TryGetValue("warning", out var tex) ? Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(1f, 1f)) : null;
+                    prefab.BuildStates[0].Tool.EntryQuantity = 1; // how many of the kit sign to consume when placing the decal
                     prefab.BuildStates[0].Thumbnail = thumb;
                     prefab.Thumbnail = thumb;
-
-                    prefab.name = "Custom Decal";
                 });
 
-            MOD.AddSaveDataType<DecalSaveData>();
 
             Log($"Loaded {prefabs.Count} prefabs");
 

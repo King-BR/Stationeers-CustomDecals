@@ -44,10 +44,10 @@
 
 	  [b]Configuration Format[/b]
 
-	  Decals are configured using the item's name (using a labeller):
+	  Decals are configured using the item's name (changed using a labeller):
 
 	  [code]
-	  front;back;widthFront;heightFront;widthBack;heightBack
+	  front decal;back decal;widthFront;heightFront;widthBack;heightBack
 	  [/code]
 
 	  Example:
@@ -75,7 +75,8 @@
 
 	  [b]Links[/b]
 	  [list]
-	  Support: [url=https://discord.gg/UxzsWmwrpR]Stationeers Modding Discord[/url]
+	  [*]Support: [url=https://discord.gg/UxzsWmwrpR]Stationeers Modding Discord[/url]
+	  [*]Source Code: [url=https://github.com/King-BR/Stationeers-CustomDecals]Github[/url]
 	  [/list]
   </Description>
   <WorkshopHandle>0</WorkshopHandle>
