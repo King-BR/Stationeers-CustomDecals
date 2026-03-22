@@ -1,26 +1,32 @@
+using Assets.Scripts.Objects;
+using Assets.Scripts.Objects.Items;
+using Assets.Scripts.Objects.Pipes;
+using BepInEx;
+using CustomDecals.Prefabs;
 using LaunchPadBooster;
 using LaunchPadBooster.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using BepInEx;
 using Util.Commands;
-using CustomDecals.Commands;
-using CustomDecals.Prefabs;
 
 namespace CustomDecals
 {
     public class CustomDecals : MonoBehaviour
     {
         public static readonly string ModName = "CustomDecals";
-        public static readonly string ModVersion = "1.0";
+        public static readonly string ModVersion = "1.1";
         public static readonly Mod MOD = new(ModName, ModVersion);
         public static readonly string modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        public static readonly string decalsPath = Path.Combine(Paths.ConfigPath, ModName, "Decals");
+        public static readonly string DecalsPath = Path.Combine(Paths.ConfigPath, ModName, "Decals");
+        public static readonly string DefaultDecalsPath = Path.Combine(modPath, "Decals");
 
         public static Dictionary<string, Texture2D> Decals = new();
         public static Dictionary<string, Material> DecalMaterials = new();
+        public static Sprite[] GameSprites;
 
         public static void Log(string message, string type = "info")
         {
@@ -45,9 +51,6 @@ namespace CustomDecals
             LoadDecals();
             Log($"Loaded {Decals.Count} decals");
 
-            MOD.SetupPrefabs() // run on all prefabs
-              .SetBlueprintMaterials(); // fill in blueprint materials to match builtin blueprints
-
             MOD.AddSaveDataType<DecalSaveData>(); // add the custom save data type for decals
             MOD.SetupPrefabs<DecalBlock>() // run on decal prefab
                 .AddToMultiConstructorKit("ItemKitSign") // add the decal prefab to the multiconstructor item kit sign
@@ -64,34 +67,63 @@ namespace CustomDecals
 
             Log($"Loaded {prefabs.Count} prefabs");
 
-            CommandLine.AddCommand("reloaddecals", new ReloadDecals());
+            // register commands dynamically
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (type.IsSubclassOf(typeof(ExtendedCommandBase)) && !type.IsAbstract)
+                {
+                    ExtendedCommandBase cmd = (ExtendedCommandBase) Activator.CreateInstance(type);
+                    CommandLine.AddCommand(cmd.Name, (CommandBase) cmd);
+                    Log($"Registered command: {cmd.Name}");
+                }
+            }
+        }
+
+        public void OnGUI()
+        {
+            DecalUI.Draw();
+        }
+
+        public static bool TryGetSpriteByName(string name, out Sprite result)
+        {
+            result = null;
+
+            if (GameSprites == null || string.IsNullOrEmpty(name)) return false;
+
+            result = GameSprites.FirstOrDefault(s => !string.IsNullOrEmpty(s.name) && string.Equals(s.name, name, StringComparison.OrdinalIgnoreCase));
+            return result != null;
         }
 
         public static void LoadDecals()
         {
-            string defaultPath = Path.Combine(modPath, "Decals");
-            string path = decalsPath;
+            // Clear existing decals and materials before loading new ones
+            GameSprites = new Sprite[] { };
+            Decals.Clear();
+            DecalMaterials.Clear();
 
-            // check if path exists, if not, create it and copy default decals
-            if (!Directory.Exists(path))
+            // Load all game sprites into a dictionary for easy access when creating materials
+            GameSprites = Resources.FindObjectsOfTypeAll<Sprite>();
+
+            // check if DecalsPath exists, if not, create it and copy default decals
+            if (!Directory.Exists(DecalsPath))
             {
-                Directory.CreateDirectory(path);
-                if (Directory.Exists(defaultPath))
+                Directory.CreateDirectory(DecalsPath);
+                if (Directory.Exists(DefaultDecalsPath))
                 {
-                    foreach (var file in Directory.GetFiles(defaultPath, "*.png"))
+                    foreach (var file in Directory.GetFiles(DefaultDecalsPath, "*.png"))
                     {
-                        string destFile = Path.Combine(path, Path.GetFileName(file));
+                        string destFile = Path.Combine(DecalsPath, Path.GetFileName(file));
                         File.Copy(file, destFile, true);
                     }
-                    Log($"Copied default decals to {path}");
+                    Log($"Copied default decals to {DecalsPath}");
                 }
                 else
                 {
-                    Log($"Default decals not found at {defaultPath}", "warning");
+                    Log($"Default decals not found at {DefaultDecalsPath}", "warning");
                 }
             }
 
-            foreach (var file in Directory.GetFiles(path, "*.png"))
+            foreach (var file in Directory.GetFiles(DecalsPath, "*.png"))
             {
                 byte[] data = File.ReadAllBytes(file);
 
@@ -106,5 +138,10 @@ namespace CustomDecals
                 Log($"Loaded decal: {name}");
             }
         }
+    }
+
+    public abstract class ExtendedCommandBase : CommandBase
+    {
+        public abstract string Name { get; }
     }
 }

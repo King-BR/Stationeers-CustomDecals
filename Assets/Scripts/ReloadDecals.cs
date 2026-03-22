@@ -1,17 +1,16 @@
-using Util.Commands;
+using System;
 
 namespace CustomDecals.Commands
 {
-    public class ReloadDecals : CommandBase
+    public class ReloadDecals : ExtendedCommandBase
     {
+        public override string Name => "reloaddecals";
         public override string HelpText => "Reload the custom decals";
-        public override string[] Arguments => new string[] { };
         public override bool IsLaunchCmd => false;
+        public override string[] Arguments => new string[] { };
 
         public override string Execute(string[] args)
         {
-            CustomDecals.Decals.Clear();
-            CustomDecals.DecalMaterials.Clear();
             CustomDecals.Log("Reloading custom decals...");
             CustomDecals.LoadDecals();
 

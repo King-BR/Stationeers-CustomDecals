@@ -1,68 +1,75 @@
 ﻿<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>Custom Decals</Name>
-  <Author>KingBR</Author>
-  <ModID>kingbr.customdecals</ModID>
-  <Version>1.0</Version>
-  <Description>
+	<Name>Custom Decals</Name>
+	<Author>KingBR</Author>
+	<WorkshopHandle>3688912266</WorkshopHandle>
+	<ModID>kingbr.customdecals</ModID>
+	<Version>1.1</Version>
+	<ChangeLog>
+		[h3]Version 1.1[/h3]
+		[list]
+		[*] Added support for vanilla/modded sprites as decals. Use command: "[b]listgamesprites [searchString][/b]" to get the list of all available sprites. searchString is optional, if provided it will filter the sprites that contain the searchString in their name.
+		[/list]
+		[h3]Version 1.0[/h3]
+		[list]
+		[*] First release
+		[/list]
+	</ChangeLog>
+	<Description>
 	  [b]Custom Decals - Placeable Signs and Images[/b]
 
-	  Add customizable decals to your base in Stationeers.
-
-	  This mod allows you to place decals (constructed with a Sign Kit) with custom images and sizes, using both built-in assets and user-provided PNG files.
+	  Add customizable decals (constructed with a Kit Sign) to your base in Stationeers. Using both built-in game assets (including modded ones) and user-provided images.
 
 	  [hr]
 
 	  [b]Features[/b]
 
 	  [list]
-	  [*]Placeable decal structures (similar to signs)
-	  [*]Support for custom PNG images
-	  [*]Independent front and back decals
-	  [*]Adjustable width and height per side
-	  [*]In-game reload command to reload user provided images (reloaddecals)
+	  [*] Placeable decal structures (similar to signs)
+	  [*] Support for custom PNG images
+	  [*] Independent front and back decals
+	  [*] Adjustable width and height per side
+	  [*] In-game reload command to reload user provided images (reloaddecals)
 	  [/list]
 
 	  [hr]
 
 	  [b]Custom Decals[/b]
 
-	  You can add your own images:
+	  built-in decals:
+
+	  [list]
+	  [*] Warning
+	  [*] Hazard
+	  [*] Danger_Eletricity
+	  [*] All game sprites (e.g. inventory/UI icons, vanilla/modded items thumbnails etc.). Use command: "[b]listgamesprites [searchString][/b]" to get the list of all available sprites. searchString is optional, if provided it will filter the sprites that contain the searchString in their name.
+	  [/list]
+
+	  How to add your own images:
 
 	  [olist]
-	  [*]Go to:
-	  [code]
-	  Stationeers/BepInEx/config/CustomDecals/Decals/
-	  [/code]
-	  [*]Add your .png files
-	  [*]If already have opened the game, run the command:
-	  [code]
-	  reloaddecals
-	  [/code]
+	  [*] Launch the game with the mod installed at least once to generate the config files
+	  [*] Navigate to in your file explorer: "[b]Stationeers/BepInEx/config/CustomDecals/Decals/[/b]"
+	  [*] Add your .png files
+	  [*] Run the following command to reload the decals, no need to restart the game: "[b]reloaddecals[/b]"
 	  [/olist]
 
 	  [hr]
 
 	  [b]Configuration Format[/b]
 
-	  Decals are configured using the item's name (changed using a labeller):
-
-	  [code]
-	  front decal;back decal;widthFront;heightFront;widthBack;heightBack
-	  [/code]
+	  Decals are configured using the item's name (changed using a labeller, case insensitive):
+	  "[b]front decal;back decal;widthFront;heightFront;widthBack;heightBack[/b]" or "[b]decal;width;height[/b]"
 
 	  Example:
-
-	  [code]
-	  warning;hazard;1;1;3;3
-	  [/code]
+	  "[b]danger_eletricity;hazard;1;1;3;3[/b]" or "[b]icon-oxygen;1.5;1.5[/b]"
 
 	  [hr]
 
 	  [b]Notes[/b]
 
 	  [list]
-	  [*]Only PNG images are supported for custom decals
-	  [*]Image size is recommended to be 1024x1024 or smaller, but larger images should work
+	  [*] Only PNG images are supported for custom decals
+	  [*] Image size is recommended to be 1024x1024 or smaller, but larger images will also work
 	  [/list]
 
 	  [hr]
@@ -70,17 +77,17 @@
 	  [b]Requirements[/b]
 
 	  [list]
-	  [*][url=https://github.com/StationeersLaunchPad/StationeersLaunchPad]Stationeers Launch Pad[/url]
+	  [*][url=https://github.com/StationeersLaunchPad/StationeersLaunchPad] Stationeers Launch Pad[/url]
 	  [/list]
 
 	  [b]Links[/b]
 	  [list]
-	  [*]Support: [url=https://discord.gg/UxzsWmwrpR]Stationeers Modding Discord[/url]
-	  [*]Source Code: [url=https://github.com/King-BR/Stationeers-CustomDecals]Github[/url]
+	  [*]Support:[url=https://discord.gg/UxzsWmwrpR] Stationeers Modding Discord[/url]
+	  [*]Source Code:[url=https://github.com/King-BR/Stationeers-CustomDecals] Github[/url]
 	  [/list]
-  </Description>
-  <WorkshopHandle>0</WorkshopHandle>
-  <Tags>
-    <Tag>StationeersLaunchPad</Tag>
-  </Tags>
+	</Description>
+	<Tags>
+		<Tag>StationeersLaunchPad</Tag>
+		<Tag>Decoration</Tag>
+	</Tags>
 </ModMetadata>

@@ -105,7 +105,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 1.7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &537881826507446841
 MonoBehaviour:
@@ -332,14 +332,6 @@ MonoBehaviour:
   AttachedCables: []
   _infoScreen: {fileID: 0}
   wreckagePrefabs: []
-  DecalNameFront: warning
-  DecalNameBack: warning
-  HeightFront: 1
-  HeightBack: 1
-  WidthFront: 1
-  WidthBack: 1
-  FrontRenderer: {fileID: 0}
-  BackRenderer: {fileID: 0}
 --- !u!1 &7155400829563826970
 GameObject:
   m_ObjectHideFlags: 0
